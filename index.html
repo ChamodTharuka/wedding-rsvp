@@ -12,11 +12,10 @@ html{scroll-behavior:smooth;}
 body{font-family:'Jost',sans-serif;background:#faeee7;color:#2c2218;min-height:100vh;}
 
 /* HERO */
-.hero{text-align:center;padding:4rem 2rem 2.5rem;background:#fdf9f4;}
+.hero{text-align:center;padding:4rem 2rem 2.5rem;background:#faeee7;}
 .ornament{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#b8955a;letter-spacing:0.4em;display:block;margin-bottom:1.2rem;opacity:0.7;}
-.couple-names{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,9vw,5.2rem);font-weight:300;color:#2c2218;line-height:1.05;letter-spacing:0.03em;}
-.couple-names em{font-style:italic;color:#b8955a;}
-.ampersand{font-size:clamp(1.8rem,5vw,3.2rem);color:#c9a97a;display:block;margin:0.15rem 0;}
+.banner-img{max-width:100%;height:auto;width:clamp(250px,80vw,500px);display:block;margin:0 auto;}
+.couple-names{display:none;}
 .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.85rem;color:#7a6652;margin-top:1.2rem;letter-spacing:0.07em;}
 .scripture{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.75rem;color:#9a8768;margin-top:0.4rem;letter-spacing:0.05em;}
 
@@ -64,12 +63,7 @@ input:focus{border-color:#b8955a;}
 <body>
 
 <div class="hero">
-  <span class="ornament">— ✦ —</span>
-  <div class="couple-names">
-    <em>Dishnika</em>
-    <span class="ampersand">&amp;</span>
-    <em>Joel</em>
-  </div>
+  <img class="banner-img" src="img/banner.jpeg" alt="Dishnika &amp; Joel">
   <p class="tagline">I HAVE FOUND THE ONE WHOM MY SOUL LOVES</p>
   <p class="scripture">Song of Solomon 3:4</p>
 </div>
