@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Isabella & Alexander — RSVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:#faf8f5;color:#2c2218;min-height:100vh;}
+
+/* HERO */
+.hero{text-align:center;padding:4rem 2rem 2.5rem;background:#fdf9f4;}
+.ornament{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#b8955a;letter-spacing:0.4em;display:block;margin-bottom:1.2rem;opacity:0.7;}
+.couple-names{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,9vw,5.2rem);font-weight:300;color:#2c2218;line-height:1.05;letter-spacing:0.03em;}
+.couple-names em{font-style:italic;color:#b8955a;}
+.ampersand{font-size:clamp(1.8rem,5vw,3.2rem);color:#c9a97a;display:block;margin:0.15rem 0;}
+.tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#7a6652;margin-top:1.2rem;letter-spacing:0.07em;}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2rem auto;max-width:360px;padding:0 1.5rem;}
+.divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,#c9a97a,transparent);}
+.divider-diamond{width:7px;height:7px;background:#c9a97a;transform:rotate(45deg);flex-shrink:0;}
+
+/* EVENT DETAILS */
+.event-details{display:flex;gap:2px;justify-content:center;flex-wrap:wrap;margin:0 auto 2.5rem;padding:0 1rem;}
+.detail-card{background:#fff;border:1px solid #e8ddd0;padding:1.1rem 1.8rem;text-align:center;min-width:130px;}
+.detail-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#b8955a;margin-bottom:0.35rem;}
+.detail-value{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:#2c2218;}
+.detail-sub{font-size:0.78rem;color:#7a6652;margin-top:0.15rem;}
+
+/* FORM */
+.form-section{max-width:480px;margin:0 auto;padding:0 1.5rem 5rem;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;text-align:center;margin-bottom:0.35rem;}
+.form-subtitle{text-align:center;font-size:0.82rem;color:#7a6652;letter-spacing:0.06em;margin-bottom:2rem;}
+.form-group{margin-bottom:1.15rem;}
+label{display:block;font-size:0.68rem;letter-spacing:0.17em;text-transform:uppercase;color:#b8955a;margin-bottom:0.45rem;}
+input[type=text],input[type=number]{width:100%;padding:0.72rem 1rem;border:1px solid #ddd3c5;background:#fff;font-family:'Jost',sans-serif;font-size:0.9rem;color:#2c2218;outline:none;border-radius:0;transition:border-color 0.2s;}
+input:focus{border-color:#b8955a;}
+.attend-group{display:flex;gap:0.5rem;}
+.attend-btn{flex:1;padding:0.72rem;border:1px solid #ddd3c5;background:#fff;font-family:'Jost',sans-serif;font-size:0.83rem;letter-spacing:0.07em;cursor:pointer;color:#7a6652;transition:all 0.2s;text-align:center;}
+.attend-btn.active-yes{background:#2c2218;border-color:#2c2218;color:#faf8f5;}
+.attend-btn.active-no{background:#8b6c5c;border-color:#8b6c5c;color:#faf8f5;}
+.attend-btn:hover:not(.active-yes):not(.active-no){border-color:#b8955a;}
+.guests-field{display:none;margin-top:1.15rem;}
+.submit-btn{width:100%;padding:1rem;background:#2c2218;color:#fdf9f4;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;border:none;cursor:pointer;margin-top:0.75rem;transition:background 0.2s;}
+.submit-btn:hover{background:#b8955a;}
+.error-msg{font-size:0.78rem;color:#a32d2d;margin-top:0.75rem;text-align:center;display:none;}
+
+/* SUCCESS */
+.success-msg{display:none;text-align:center;padding:2.5rem 1.5rem;background:#fff;border:1px solid #e8ddd0;}
+.success-icon{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:#b8955a;display:block;margin-bottom:1rem;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;margin-bottom:0.6rem;}
+.success-sub{font-size:0.85rem;color:#7a6652;line-height:1.7;}
+
+/* FOOTER */
+.footer{text-align:center;padding:1.8rem;border-top:1px solid #e8ddd0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.92rem;color:#b8955a;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="ornament">— ✦ —</span>
+  <div class="couple-names">
+    <em>Isabella</em>
+    <span class="ampersand">&amp;</span>
+    <em>Alexander</em>
+  </div>
+  <p class="tagline">Together with their families, request the pleasure of your company</p>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<div class="event-details">
+  <div class="detail-card">
+    <div class="detail-label">Date</div>
+    <div class="detail-value">14 February</div>
+    <div class="detail-sub">2026</div>
+  </div>
+  <div class="detail-card">
+    <div class="detail-label">Time</div>
+    <div class="detail-value">4:00 PM</div>
+    <div class="detail-sub">Ceremony begins</div>
+  </div>
+  <div class="detail-card">
+    <div class="detail-label">Venue</div>
+    <div class="detail-value">Grand Rosewood</div>
+    <div class="detail-sub">Ballroom, City Hall</div>
+  </div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+<div class="form-section">
+  <h2 class="form-title">Kindly Reply</h2>
+  <p class="form-subtitle">Please respond by 14 January 2026</p>
+
+  <div id="rsvp-form">
+    <div class="form-group">
+      <label>Your Full Name</label>
+      <input type="text" id="name" placeholder="As it appears on your invitation"/>
+    </div>
+
+    <div class="form-group">
+      <label>Will you attend?</label>
+      <div class="attend-group">
+        <button class="attend-btn" id="btn-yes" onclick="setAttend('yes')">Joyfully Accepts</button>
+        <button class="attend-btn" id="btn-no" onclick="setAttend('no')">Regretfully Declines</button>
+      </div>
+    </div>
+
+    <div class="guests-field" id="guests-field">
+      <div class="form-group">
+        <label>Number of Guests (including yourself)</label>
+        <input type="number" id="guests" min="1" max="10" value="1"/>
+      </div>
+    </div>
+
+    <p class="error-msg" id="error-msg">Please fill in all required fields.</p>
+    <button class="submit-btn" onclick="submitRSVP()">Send My RSVP</button>
+  </div>
+
+  <div class="success-msg" id="success-msg">
+    <span class="success-icon">✦</span>
+    <div class="success-title" id="success-title"></div>
+    <p class="success-sub" id="success-sub"></p>
+  </div>
+</div>
+
+<div class="footer">Isabella &amp; Alexander · 14 February 2026</div>
+
+<script>
+var attending = null;
+
+function setAttend(val) {
+  attending = val;
+  document.getElementById('btn-yes').className = 'attend-btn' + (val === 'yes' ? ' active-yes' : '');
+  document.getElementById('btn-no').className = 'attend-btn' + (val === 'no' ? ' active-no' : '');
+  document.getElementById('guests-field').style.display = val === 'yes' ? 'block' : 'none';
+}
+
+function submitRSVP() {
+  var name = document.getElementById('name').value.trim();
+  var errEl = document.getElementById('error-msg');
+  errEl.style.display = 'none';
+
+  if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
+  if (attending === null) { errEl.textContent = 'Please let us know if you will attend.'; errEl.style.display = 'block'; return; }
+
+  var guests = attending === 'yes' ? parseInt(document.getElementById('guests').value) || 1 : 0;
+  var record = {
+    id: Date.now(),
+    name: name,
+    attending: attending,
+    guests: guests,
+    submittedAt: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  var existing = JSON.parse(localStorage.getItem('wedding_rsvp') || '[]');
+  existing.push(record);
+  localStorage.setItem('wedding_rsvp', JSON.stringify(existing));
+
+  // Show success
+  document.getElementById('rsvp-form').style.display = 'none';
+  var sm = document.getElementById('success-msg');
+  sm.style.display = 'block';
+  if (attending === 'yes') {
+    document.getElementById('success-title').textContent = 'We cannot wait to celebrate with you!';
+    document.getElementById('success-sub').textContent = 'Thank you, ' + name + '. Your RSVP has been received. We look forward to sharing this joyful day with you.';
+  } else {
+    document.getElementById('success-title').textContent = 'You will be missed.';
+    document.getElementById('success-sub').textContent = 'Thank you, ' + name + ', for letting us know. We will be thinking of you on our special day.';
+  }
+}
+</script>
+</body>
+</html>

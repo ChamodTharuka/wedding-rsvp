@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin — Wedding RSVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Jost',sans-serif;background:#f5f3ef;color:#2c2218;min-height:100vh;}
+
+/* HEADER */
+.header{background:#2c2218;color:#fdf9f4;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.header-left h1{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:#c9a97a;}
+.header-left p{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:#a89882;margin-top:0.15rem;}
+.header-actions{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.btn{padding:0.55rem 1.2rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;}
+.btn-outline{background:transparent;border:1px solid #5a4a3a;color:#c9a97a;}
+.btn-outline:hover{border-color:#c9a97a;background:rgba(201,169,122,0.08);}
+.btn-gold{background:#b8955a;color:#fff;}
+.btn-gold:hover{background:#c9a97a;}
+.btn-danger{background:transparent;border:1px solid #6b3030;color:#e07070;}
+.btn-danger:hover{background:rgba(160,50,50,0.15);}
+
+/* LOCK SCREEN */
+.lock-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#faf8f5;}
+.lock-card{background:#fff;border:1px solid #e8ddd0;padding:2.5rem 2.5rem;max-width:360px;width:90%;text-align:center;}
+.lock-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:0.4rem;}
+.lock-sub{font-size:0.8rem;color:#7a6652;margin-bottom:1.8rem;}
+.lock-input{width:100%;padding:0.7rem 1rem;border:1px solid #ddd3c5;background:#faf8f5;font-family:'Jost',sans-serif;font-size:0.95rem;color:#2c2218;outline:none;border-radius:0;letter-spacing:0.1em;text-align:center;margin-bottom:0.8rem;}
+.lock-input:focus{border-color:#b8955a;}
+.lock-error{font-size:0.78rem;color:#a32d2d;margin-top:0.5rem;display:none;}
+
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:2px;margin:1.5rem 1.5rem 0;}
+.stat-card{background:#fff;border:1px solid #e8ddd0;padding:1.1rem 1.3rem;}
+.stat-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8955a;margin-bottom:0.4rem;}
+.stat-value{font-size:2rem;font-weight:500;color:#2c2218;line-height:1;}
+.stat-sub{font-size:0.75rem;color:#7a6652;margin-top:0.3rem;}
+.stat-card.attending .stat-value{color:#3a6b3a;}
+.stat-card.declined .stat-value{color:#8b3a2e;}
+
+/* CONTENT */
+.content{padding:1.5rem;}
+
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;}
+.filter-tabs{display:flex;gap:2px;}
+.tab{padding:0.45rem 1rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid #ddd3c5;background:#fff;cursor:pointer;color:#7a6652;transition:all 0.2s;}
+.tab.active{background:#2c2218;border-color:#2c2218;color:#faf8f5;}
+.tab:hover:not(.active){border-color:#b8955a;}
+.search-box{padding:0.45rem 0.9rem;border:1px solid #ddd3c5;background:#fff;font-family:'Jost',sans-serif;font-size:0.82rem;color:#2c2218;outline:none;width:220px;}
+.search-box:focus{border-color:#b8955a;}
+
+/* TABLE */
+.table-wrap{background:#fff;border:1px solid #e8ddd0;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead{background:#2c2218;}
+thead th{padding:0.75rem 1rem;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#c9a97a;text-align:left;font-weight:500;white-space:nowrap;}
+tbody tr{border-bottom:1px solid #f0ebe4;transition:background 0.15s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#fdf9f4;}
+tbody td{padding:0.75rem 1rem;font-size:0.85rem;color:#2c2218;vertical-align:middle;}
+.badge{display:inline-block;padding:0.22rem 0.65rem;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;}
+.badge-yes{background:#e8f4e8;color:#2d6b2d;border:1px solid #b8d8b8;}
+.badge-no{background:#f4e8e8;color:#6b2d2d;border:1px solid #d8b8b8;}
+.date-cell{font-size:0.78rem;color:#7a6652;white-space:nowrap;}
+.no-records{text-align:center;padding:3.5rem 1rem;color:#7a6652;font-size:0.9rem;}
+.no-records-icon{font-size:2rem;margin-bottom:0.8rem;opacity:0.4;}
+.delete-btn{background:transparent;border:none;cursor:pointer;color:#c9a97a;font-size:0.85rem;padding:0.2rem 0.4rem;transition:color 0.15s;}
+.delete-btn:hover{color:#a32d2d;}
+
+/* FOOTER */
+.admin-footer{text-align:center;padding:1.5rem;font-size:0.75rem;color:#a89882;letter-spacing:0.08em;}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen" class="lock-screen">
+  <div class="lock-card">
+    <div class="lock-title">Admin Access</div>
+    <p class="lock-sub">Isabella &amp; Alexander · RSVP Dashboard</p>
+    <input type="password" class="lock-input" id="pass-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPass()"/>
+    <button class="btn btn-gold" style="width:100%;" onclick="checkPass()">Enter Dashboard</button>
+    <p class="lock-error" id="lock-error">Incorrect password. Please try again.</p>
+    <p style="font-size:0.72rem;color:#b8a08a;margin-top:1.5rem;">Default password: <strong>admin123</strong></p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none;">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>RSVP Dashboard</h1>
+      <p>Isabella &amp; Alexander · 14 February 2026</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="loadData()">↻ Refresh</button>
+      <button class="btn btn-gold" onclick="downloadCSV()">↓ Download CSV</button>
+      <button class="btn btn-danger" onclick="clearAll()">✕ Clear All</button>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-label">Total Responses</div>
+      <div class="stat-value" id="stat-total">0</div>
+      <div class="stat-sub">RSVPs received</div>
+    </div>
+    <div class="stat-card attending">
+      <div class="stat-label">Attending</div>
+      <div class="stat-value" id="stat-yes">0</div>
+      <div class="stat-sub" id="stat-yes-guests">0 guests total</div>
+    </div>
+    <div class="stat-card declined">
+      <div class="stat-label">Declined</div>
+      <div class="stat-value" id="stat-no">0</div>
+      <div class="stat-sub">Will not attend</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Acceptance Rate</div>
+      <div class="stat-value" id="stat-rate">—</div>
+      <div class="stat-sub">of responses</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <button class="tab active" onclick="setFilter('all',this)">All</button>
+        <button class="tab" onclick="setFilter('yes',this)">Attending</button>
+        <button class="tab" onclick="setFilter('no',this)">Declined</button>
+      </div>
+      <input type="text" class="search-box" id="search-box" placeholder="Search by name..." oninput="renderTable()"/>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Attending</th>
+            <th>Guests</th>
+            <th>Submitted</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="admin-footer">Wedding RSVP Admin · Data stored locally in your browser</div>
+</div>
+
+<script>
+var PASS = 'admin123';
+var allRecords = [];
+var currentFilter = 'all';
+
+function checkPass() {
+  var val = document.getElementById('pass-input').value;
+  if (val === PASS) {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('lock-error').style.display = 'block';
+    document.getElementById('pass-input').value = '';
+  }
+}
+
+function loadData() {
+  allRecords = JSON.parse(localStorage.getItem('wedding_rsvp') || '[]');
+  updateStats();
+  renderTable();
+}
+
+function updateStats() {
+  var yes = allRecords.filter(function(r){return r.attending==='yes';});
+  var no = allRecords.filter(function(r){return r.attending==='no';});
+  var totalGuests = yes.reduce(function(s,r){return s+(r.guests||1);},0);
+  var rate = allRecords.length > 0 ? Math.round((yes.length/allRecords.length)*100) + '%' : '—';
+  document.getElementById('stat-total').textContent = allRecords.length;
+  document.getElementById('stat-yes').textContent = yes.length;
+  document.getElementById('stat-yes-guests').textContent = totalGuests + ' guest' + (totalGuests!==1?'s':'') + ' total';
+  document.getElementById('stat-no').textContent = no.length;
+  document.getElementById('stat-rate').textContent = rate;
+}
+
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  renderTable();
+}
+
+function renderTable() {
+  var search = (document.getElementById('search-box').value || '').toLowerCase();
+  var filtered = allRecords.filter(function(r) {
+    var matchFilter = currentFilter === 'all' || r.attending === currentFilter;
+    var matchSearch = !search || r.name.toLowerCase().indexOf(search) !== -1;
+    return matchFilter && matchSearch;
+  });
+
+  var tbody = document.getElementById('table-body');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="no-records"><div class="no-records-icon">✦</div>No records found</div></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(function(r, i) {
+    var d = new Date(r.submittedAt);
+    var dateStr = d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+    var timeStr = d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    return '<tr>' +
+      '<td style="color:#a89882;font-size:0.78rem;">' + (i+1) + '</td>' +
+      '<td><strong>' + escHtml(r.name) + '</strong></td>' +
+      '<td><span class="badge badge-' + r.attending + '">' + (r.attending==='yes'?'Attending':'Declined') + '</span></td>' +
+      '<td>' + (r.attending==='yes' ? (r.guests||1) : '—') + '</td>' +
+      '<td class="date-cell">' + dateStr + ' · ' + timeStr + '</td>' +
+      '<td><button class="delete-btn" onclick="deleteRecord(' + r.id + ')" title="Delete">✕</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function deleteRecord(id) {
+  if (!confirm('Delete this RSVP record?')) return;
+  allRecords = allRecords.filter(function(r){return r.id !== id;});
+  localStorage.setItem('wedding_rsvp', JSON.stringify(allRecords));
+  updateStats();
+  renderTable();
+}
+
+function clearAll() {
+  if (!confirm('Delete ALL RSVP records? This cannot be undone.')) return;
+  localStorage.removeItem('wedding_rsvp');
+  allRecords = [];
+  updateStats();
+  renderTable();
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function downloadCSV() {
+  if (allRecords.length === 0) { alert('No records to download.'); return; }
+  var rows = [['#','Name','Attending','Guests','Submitted Date','Submitted Time']];
+  allRecords.forEach(function(r,i) {
+    var d = new Date(r.submittedAt);
+    rows.push([
+      i+1,
+      '"' + r.name.replace(/"/g,'""') + '"',
+      r.attending === 'yes' ? 'Attending' : 'Declined',
+      r.attending === 'yes' ? (r.guests||1) : 0,
+      d.toLocaleDateString('en-GB'),
+      d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})
+    ]);
+  });
+  var csv = rows.map(function(r){return r.join(',');}).join('\n');
+  var blob = new Blob([csv], {type:'text/csv'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'wedding-rsvp-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
